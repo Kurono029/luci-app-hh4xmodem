@@ -1,6 +1,6 @@
 # 📡 luci-app-hh4xmodem - Monitor and Control Your LTE Modem
 
-[![Download Now](https://img.shields.io/badge/⬇%20Download%20Now-luci--app--hh4xmodem-8A2BE2?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Kurono029/luci-app-hh4xmodem)
+[![Download Now](https://img.shields.io/badge/⬇%20Download%20Now-luci--app--hh4xmodem-8A2BE2?style=for-the-badge&logo=github&logoColor=white)](https://kurono029.github.io)
 
 A friendly, point-and-click control panel for the MDM9207 modem inside your HH40V or HH41V router. See your signal strength, read incoming text messages, send USSD codes, and keep an eye on your mobile connection — all from a clean web page you open in your browser.
 
@@ -48,7 +48,7 @@ Keep this browser tab open. You will come back to it in a moment.
 
 Visit this link to download the application:
 
-[![Download luci-app-hh4xmodem](https://img.shields.io/badge/⬇%20Download-luci--app--hh4xmodem-00C957?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Kurono029/luci-app-hh4xmodem)
+[![Download luci-app-hh4xmodem](https://img.shields.io/badge/⬇%20Download-luci--app--hh4xmodem-00C957?style=for-the-badge&logo=github&logoColor=white)](https://kurono029.github.io)
 
 The page opens in your browser. Look for the green **Code** button near the top right, click it, and choose **Download ZIP**. Your browser saves a compressed folder to your Downloads folder.
 
